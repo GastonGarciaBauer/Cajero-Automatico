@@ -1,0 +1,15 @@
+# Build y binarios
+bin/
+obj/
+
+# Archivos de usuario de Visual Studio
+*.user
+*.suo
+*.vsp
+*.vspscc
+
+# Carpetas de VS Code
+.vscode/
+
+# Archivos de Visual Studio
+.vs/
