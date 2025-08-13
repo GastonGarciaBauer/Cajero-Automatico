@@ -1,6 +1,4 @@
-﻿using System.Transactions;
-
-namespace CajeroMVC.Models
+﻿namespace CajeroMVC.Models
 {
     public class Cuenta
     {
