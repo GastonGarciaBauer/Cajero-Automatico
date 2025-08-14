@@ -4,6 +4,7 @@ using CajeroMVC.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CajeroMVC.Migrations
 {
     [DbContext(typeof(CajeroContext))]
-    partial class CajeroContextModelSnapshot : ModelSnapshot
+    [Migration("20250814032507_AddUsuarioIdToCuenta")]
+    partial class AddUsuarioIdToCuenta
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using CajeroMVC.Data;
 using CajeroMVC.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace CajeroMVC.Controllers
 {
@@ -23,25 +24,50 @@ namespace CajeroMVC.Controllers
         // GET: Usuario/Create
         public IActionResult Create()
         {
-            // Solo muestra el formulario vacío
-            return View();
+            Random rnd = new Random();
+            int numeroAleatorio = rnd.Next(100000, 999999); // entre 100000 y 999999
+
+            var model = new UsuarioCuentaViewModel
+            {
+                NumeroCuenta = numeroAleatorio.ToString()
+            };
+
+            return View(model);
         }
+
 
         // POST: Usuario/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Usuario usuario)
+        public IActionResult Create(UsuarioCuentaViewModel model)
         {
             if (ModelState.IsValid)
             {
+                var usuario = new Usuario
+                {
+                    UsuarioLogin = model.UsuarioLogin,
+                    Pin = model.Pin,
+                    Cuentas = new List<Cuenta>
+            {
+                new Cuenta
+                {
+                    NumeroCuenta = model.NumeroCuenta,
+                    Titular = model.Titular,
+                    Saldo = model.Saldo
+                }
+            }
+                };
+
                 _context.Usuarios.Add(usuario);
                 _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
 
-            // Si el modelo tiene errores, se vuelve a mostrar el formulario con mensajes de validación
-            return View(usuario);
+            // Si hay errores, regenerar el número aleatorio
+            ViewBag.NumeroCuentaAleatorio = new Random().Next(100000, 999999);
+                return View(model);
         }
+
 
         // GET: Usuario/Update
 
@@ -52,31 +78,30 @@ namespace CajeroMVC.Controllers
 
         // POST: Usuario/Update/id
         [HttpPost]
+    public IActionResult Update(int id)
+    {
+        var usuario = _context.Usuarios
+            .Include(u => u.Cuentas) // Esto carga las cuentas asociadas
+            .Where(u => u.Id == id)
+            .Select(u => new UsuarioCuentaViewModel
+            {
+                Id = u.Id,
+                UsuarioLogin = u.UsuarioLogin,
+                Pin = u.Pin,
+                NumeroCuenta = u.Cuentas.FirstOrDefault() != null ? u.Cuentas.First().NumeroCuenta : "",
+                Titular = u.Cuentas.FirstOrDefault() != null ? u.Cuentas.First().Titular : "",
+                Saldo = u.Cuentas.FirstOrDefault() != null ? u.Cuentas.First().Saldo : 0
+            })
+            .FirstOrDefault();
 
-        public IActionResult Update(int id)
-        {
-            var usuario = _context.Usuarios
-                .Where(u => u.Id == id)
-                .Select(u => new UsuarioCuentaViewModel
-                {
-                    Id = u.Id,
-                    UsuarioLogin = u.UsuarioLogin,
-                    Pin = u.Pin,
-                    // Tomamos la primera cuenta del usuario como ejemplo
-                    NumeroCuenta = u.Cuentas.FirstOrDefault() != null ? u.Cuentas.First().NumeroCuenta : "",
-                    Titular = u.Cuentas.FirstOrDefault() != null ? u.Cuentas.First().Titular : "",
-                    Saldo = u.Cuentas.FirstOrDefault() != null ? u.Cuentas.First().Saldo : 0
-                })
-                .FirstOrDefault();
+        if (usuario == null)
+            ViewBag.Mensaje = "Usuario no encontrado";
 
-            if (usuario == null)
-                ViewBag.Mensaje = "Usuario no encontrado";
+        return View(usuario);
+    }
 
-            return View(usuario);
-        }
-
-        // GET: Usuario/Delete
-        public IActionResult Delete()
+    // GET: Usuario/Delete
+    public IActionResult Delete()
         {
             return View(); // muestra el formulario vacío
         }
