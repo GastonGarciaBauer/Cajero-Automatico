@@ -1,0 +1,27 @@
+﻿@model CajeroMVC.Models.Usuario
+
+@{
+    ViewData["Title"] = "Eliminar Usuario";
+}
+
+<h2>Eliminar Usuario</h2>
+
+<form asp-action="DeleteConfirm" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="mb-3">
+        <label class="form-label">Usuario Login</label>
+        <input class="form-control" asp-for="UsuarioLogin" readonly />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">PIN</label>
+        <input class="form-control" asp-for="Pin" readonly />
+    </div>
+
+    <button type="submit" class="btn btn-danger"
+            onclick="return confirm('¿Estás seguro que quieres eliminar este usuario?');">
+        Eliminar
+    </button>
+    <a asp-action="Delete" class="btn btn-secondary">Cancelar</a>
+</form>

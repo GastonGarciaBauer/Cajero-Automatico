@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/CajeroMVC.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
 <body>
     <header>
@@ -20,13 +21,27 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="Index">Usuarios</a>
+                        <!-- Menú desplegable para Usuarios -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-dark" href="#" id="usuariosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Usuarios
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="usuariosDropdown">
+                                <li>
+                                    <a class="dropdown-item" asp-controller="Usuario" asp-action="Index">Lista de Usuarios</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-controller="Usuario" asp-action="Create">Agregar Usuario</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-controller="Usuario" asp-action="Update">Editar Usuario</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-controller="Usuario" asp-action="Delete">Eliminar Usuario</a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </div>

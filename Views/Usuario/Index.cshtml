@@ -20,6 +20,7 @@ else
                 <th>ID</th>
                 <th>Usuario</th>
                 <th>PIN</th>
+                <th>Detalle</th>
             </tr>
         </thead>
         <tbody>
@@ -31,6 +32,15 @@ else
                     <td>
                         @(new string('*', usuario.Pin?.Length ?? 0))
                     </td>
+                    <td>
+                        <a asp-action="Details" asp-controller="Usuario" asp-route-id="@usuario.Id" title="Ver detalle" class="text-dark">
+                            <i class="fas fa-file-alt"></i>
+                        </a>
+                    </td>
+
+
+
+
                 </tr>
             }
         </tbody>

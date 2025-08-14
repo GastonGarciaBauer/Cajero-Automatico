@@ -1,0 +1,42 @@
+﻿@model CajeroMVC.Models.UsuarioCuentaViewModel
+
+<h2>Editar Usuario</h2>
+
+<form asp-action="Update" method="post">
+    <!-- Usuario -->
+    <div class="mb-3">
+        <label for="id" class="form-label">ID del Usuario</label>
+        <input type="number" class="form-control" id="id" name="Id"
+               value="@Model?.Id" placeholder="Ingrese ID" required />
+    </div>
+    <div class="mb-3">
+        <label for="UsuarioLogin" class="form-label">UsuarioLogin</label>
+        <input type="text" class="form-control" id="UsuarioLogin" name="UsuarioLogin"
+               value="@Model?.UsuarioLogin" />
+    </div>
+    <div class="mb-3">
+        <label for="Pin" class="form-label">Pin</label>
+        <input type="text" class="form-control" id="Pin" name="Pin"
+               value="@Model?.Pin" />
+    </div>
+
+    <!-- Cuenta -->
+    <div class="mb-3">
+        <label for="NumeroCuenta" class="form-label">Nº de Cuenta</label>
+        <input type="text" class="form-control" id="NumeroCuenta" name="NumeroCuenta"
+               value="@Model?.NumeroCuenta" />
+    </div>
+    <div class="mb-3">
+        <label for="Titular" class="form-label">Titular</label>
+        <input type="text" class="form-control" id="Titular" name="Titular"
+               value="@Model?.Titular" />
+    </div>
+    <div class="mb-3">
+        <label for="Saldo" class="form-label">Saldo</label>
+        <input type="text" class="form-control" id="Saldo" name="Saldo"
+               value="@Model?.Saldo" />
+    </div>
+
+    <button type="submit" class="btn btn-warning">@((Model != null) ? "Actualizar" : "Buscar")</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>
