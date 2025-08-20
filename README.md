@@ -1,4 +1,4 @@
-# CajeroBackend
+# CajeroBackend 💵
 
 Este proyecto es un sistema de gestión de cajero automático realizado en C# y .NET.
 
@@ -10,5 +10,6 @@ Este proyecto es un sistema de gestión de cajero automático realizado en C# y 
 </p>
 
 ## Autor
+
 
 Gastón García Bauer
